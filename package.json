@@ -1,0 +1,17 @@
+{
+  "name": "miroir-neon-setup",
+  "private": true,
+  "scripts": {
+    "install:all": "npm ci && npm --prefix backend ci && npm --prefix frontend-- ci",
+    "neon:backend": "neon-env run -- node --watch backend/src/server.js",
+    "neon:frontend": "neon-env run -- node frontend--/node_modules/vite/bin/vite.js frontend-- --host 0.0.0.0",
+    "neon:migrate": "neon-env run -- node backend/src/migrate.js",
+    "neon:deploy": "npx neon@latest deploy",
+    "neon:auth-setup": "npx neon@latest neon-auth config email-password update --enabled --require-email-verification --send-verification-email-on-sign-up --email-verification-method otp && npx neon@latest neon-auth domain allow-localhost enable",
+    "neon:setup": "npm run neon:deploy && npm run neon:auth-setup && npm run neon:migrate"
+  },
+  "dependencies": {
+    "@neon/config": "^1.11.3",
+    "@neon/env": "^1.6.15"
+  }
+}
